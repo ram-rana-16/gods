@@ -16,12 +16,30 @@ func (t *Tree)Print(res []int) []int{
 	if t == nil {
 		return res
 	}
-	res = t.L.Print(res)
+	t.L.Print(res)
 	fmt.Println(t.Value)
 	res = append(res, t.Value)
-	res = t.R.Print(res)
+	fmt.Println("now res", res)
+	t.R.Print(res)
 	return res
 }
+
+// PostOrder traverse 
+func (t *Tree)PostOrder(res []int) []int{
+	if t == nil {
+		return res
+	}
+	if t.L != nil {
+		res = t.L.PostOrder(res)
+	}
+	if t.R != nil {
+		res = t.R.PostOrder(res)
+	}
+	res = append(res, t.Value)
+	return res
+}
+
+
 // Insert inserts new node to a tree 
 func (t *Tree)Insert(v int) *Tree{
 	if t == nil {
@@ -33,6 +51,9 @@ func (t *Tree)Insert(v int) *Tree{
 	}
 	return t
 }
+
+
+
 
 // Delete deletes node from tree 
 func (tree *Tree)Delete(value int) *Tree{
@@ -65,7 +86,6 @@ func findMin(t *Tree) *Tree {
 	}
 	return t
 }
-
 
 
 

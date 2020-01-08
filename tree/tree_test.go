@@ -8,7 +8,8 @@ import(
 func TestInsert(t *testing.T) {
 	tree := &Tree{Value:6}
 	tree = tree.Insert(8).Insert(9).Insert(2)
-	tree.Print(nil)
+	x := tree.Print([]int{})
+	fmt.Println("resutlt x", x)
 }
 
 func TestDelete(t *testing.T) {
@@ -38,4 +39,11 @@ func TestNewBST(t *testing.T) {
 	fmt.Println("after deleetion")
 	res := test1.Print([]int{})
 	fmt.Println("res", res)
+}
+
+
+func TestPostOrder(t *testing.T) {
+	var test1 = NewBST(10, 5, 15)
+	s := test1.PostOrder([]int{})
+	fmt.Println("res", s)
 }
