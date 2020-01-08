@@ -12,20 +12,21 @@ type Tree struct {
 }
 
 // Print prints a tree in Inorder
-func (t *Tree)Print() {
+func (t *Tree)Print(res []int) []int{
 	if t == nil {
-		return
+		return res
 	}
-	t.L.Print()
+	res = t.L.Print(res)
 	fmt.Println(t.Value)
-	t.R.Print()
-
+	res = append(res, t.Value)
+	res = t.R.Print(res)
+	return res
 }
 // Insert inserts new node to a tree 
 func (t *Tree)Insert(v int) *Tree{
 	if t == nil {
-		t = &Tree{Value: v} 
-	}else if t.Value < v {
+	t = &Tree{Value: v} 
+	}else if t.Value <= v {
 		t.R = t.R.Insert(v)
 	}else {
 		t.L = t.L.Insert(v)
@@ -34,30 +35,26 @@ func (t *Tree)Insert(v int) *Tree{
 }
 
 // Delete deletes node from tree 
-func (t *Tree)Delete(v int) *Tree{
-	if t == nil {
-		return t
+func (tree *Tree)Delete(value int) *Tree{
+	if tree == nil {
+		return tree
 	}
-	fmt.Println("node ", t)
-	if t.Value > v {
-		t.L = t.L.Delete(v)
-	}else if t.Value < v {
-		t.R = t.R.Delete(v)
-	}else if t.L == nil && t.R == nil {
-		fmt.Println("case 1")
-		t = nil
-	}else if t.L == nil {  // case 2: one child
-		fmt.Println("case 2")
-		t = t.R
-	}else if t.R == nil {
-		t = t.L
-	}else { // case 3: 3 child 
-		minNode := findMin(t.R)
-		t.Value = minNode.Value
-		t.R = t.R.Delete(minNode.Value)
+	if tree.Value < value {
+		tree.R = tree.R.Delete(value)
+	}else if tree.Value > value {
+		tree.L = tree.L.Delete(value)
+	}else if tree.L == nil && tree.R == nil {
+		tree = nil
+	}else if tree.L == nil {
+		tree = tree.R
+	}else if tree.R == nil {
+		tree = tree.L
+	}else {
+		minNode := findMin(tree.R)
+		tree.Value = minNode.Value
+		tree.R = tree.R.Delete(minNode.Value)
 	}
-	fmt.Println("returned t", t)
-	return t
+	return tree
 
 }
 
@@ -68,3 +65,7 @@ func findMin(t *Tree) *Tree {
 	}
 	return t
 }
+
+
+
+
