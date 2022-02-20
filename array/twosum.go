@@ -5,6 +5,7 @@ package main
 // Input: nums = [2,7,11,15], target = 9
 // Output: [0,1]
 
+// compxity - o(n) time | O(n) space where n is lenght of array 
 func twoSum(nums []int, target int) []int {
 	mymap := make(map[int]int, len(nums))
 	for i, num := range nums {
